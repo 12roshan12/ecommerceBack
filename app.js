@@ -11,6 +11,9 @@ var categoryRouter = require('./routes/category.route')
 var subcategoryRouter = require('./routes/subcategory.route')
 var offersRouter = require('./routes/offers.route')
 var cartRouter = require('./routes/cart.route')
+var imageRouter = require('./routes/images.route')
+var path = require("path")
+
 
 
 var body = require('body-parser')
@@ -30,11 +33,30 @@ app.use("/category",categoryRouter)
 app.use("/subcategory",subcategoryRouter)
 app.use("/offers",offersRouter)
 app.use("/cart",cartRouter)
+app.use("/images",imageRouter)
 
+const  multipart  =  require('connect-multiparty');
+const  multipartMiddleware  =  multipart({ uploadDir:  './uploads' });
 
+app.post('/api/upload', multipartMiddleware, (req, res) => {
+  console.log("aaaa");
+  console.log(req);
+  res.json({
+      'message': 'File uploaded successfully'
+  });
+});
+
+app.use(body.json());
+app.use(body.urlencoded({
+    extended: true
+}));
+
+var dir = path.join(__dirname,'uploads')
+app.use('/images',express.static(dir));
 
 
 app.listen(5001, function () {
+  console.log(dir);
   console.log('CORS-enabled web server listening on port 80')
 })
 
