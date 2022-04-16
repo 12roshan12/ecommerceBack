@@ -13,6 +13,18 @@ var offersRouter = require('./routes/offers.route')
 var cartRouter = require('./routes/cart.route')
 var imageRouter = require('./routes/images.route')
 var path = require("path")
+const multer  = require('multer')
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+ '-'+ `${file.originalname}` )
+  }
+})
+ 
+var upload = multer({ storage: storage })
 
 
 
@@ -35,21 +47,17 @@ app.use("/offers",offersRouter)
 app.use("/cart",cartRouter)
 app.use("/images",imageRouter)
 
-const  multipart  =  require('connect-multiparty');
-const  multipartMiddleware  =  multipart({ uploadDir:  './uploads' });
-
-app.post('/api/upload', multipartMiddleware, (req, res) => {
-  console.log("aaaa");
-  console.log(req);
-  res.json({
-      'message': 'File uploaded successfully'
-  });
+app.post('/api/upload', upload.single('file'), function (req, res) {
+ 
+  console.log(req,req.file, req.body)
 });
 
 app.use(body.json());
 app.use(body.urlencoded({
     extended: true
 }));
+
+
 
 var dir = path.join(__dirname,'uploads')
 app.use('/images',express.static(dir));
