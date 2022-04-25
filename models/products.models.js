@@ -3,7 +3,7 @@ var con = require('../database/db')
 
 const MgetAllProducts = async () => {
     return new Promise((resolve, reject) => {
-        var sql = "SELECT * FROM product";
+        var sql = "SELECT * FROM products";
         con.query(sql, function (err, result) {
            if(err){
                resolve({error:err,result:null})
@@ -16,10 +16,10 @@ const MgetAllProducts = async () => {
 }
 
 
-const MaddProducts = async (name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn) => {
+const MaddProducts = async (vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) => {
     return new Promise((resolve, reject) => {
-        var sql = "INSERT INTO product (name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        con.query(sql,[name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn], function (err, result) {
+        var sql = "INSERT INTO products (vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        con.query(sql,[vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
@@ -31,10 +31,10 @@ const MaddProducts = async (name,description,brand,quantity,category,multiColor,
     })
 }
 
-const MupdateProducts = async (id,name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn) => {
+const MupdateProducts = async (id,vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE  product set name=?,description=?,brand=?,quantity=?,category=?,multiColor=?,colorOption=?,subCategory=?,tag=?,vendor=?,price=?,createdBy=?,updatedBy=?,createdOn=? where id = ? ";
-        con.query(sql,[name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn,id], function (err, result) {
+        var sql = "UPDATE  products set vendorId = ?,name =?,description =?,quantity =?,price =?,categoryId =?,subCategoryId =?,typeId =?,brand =?,sizeAvailable =?,mainImageUrl =?,subImageUrl =?,colorOption =?,tags =?,createdBy =?,updatedBy =?,createdOn =?,updatedOn =? where id = ? ";
+        con.query(sql,[vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn,id], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
@@ -48,7 +48,7 @@ const MupdateProducts = async (id,name,description,brand,quantity,category,multi
 
 const MdeleteProducts = async (id) => {
     return new Promise((resolve, reject) => {
-        var sql = "DELETE FROM product  where id = ? ";
+        var sql = "DELETE FROM products  where id = ? ";
         con.query(sql,[id], function (err, result) {
             if(err){
                 resolve({error:err,result:null})

@@ -8,17 +8,18 @@ const CfindAllProducts = async(req,res)=>{
 }
 
 const CaddProducts = async(req,res)=>{
-    const {name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn}=req.body
-    const result = await MaddProducts(name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn);
+    const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
+    
+    const result = await MaddProducts(vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption, JSON.stringify(tags),createdBy,updatedBy,createdOn,updatedOn);
     // res.send("add")
     res.send(result)
     console.log(result);
 }
 
 const CupdateProducts = async(req,res)=>{
-    const {name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn}=req.body
+    const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
     const {id} = req.params
-    const result = await MupdateProducts(id,name,description,brand,quantity,category,multiColor,colorOption,subCategory,tag,vendor,price,createdBy,updatedBy,createdOn);
+    const result = await MupdateProducts(id,vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn);
     // res.send("update")
     res.send(result)
     console.log(result);
