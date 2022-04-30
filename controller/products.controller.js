@@ -10,7 +10,7 @@ const CfindAllProducts = async(req,res)=>{
 const CaddProducts = async(req,res)=>{
     const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
     
-    const result = await MaddProducts(vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption, JSON.stringify(tags),createdBy,updatedBy,createdOn,updatedOn);
+    const result = await MaddProducts(vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,JSON.stringify(sizeAvailable),mainImageUrl,JSON.stringify(subImageUrl),JSON.stringify(colorOption), JSON.stringify(tags),createdBy,updatedBy,createdOn,updatedOn);
     // res.send("add")
     res.send(result)
     console.log(result);
