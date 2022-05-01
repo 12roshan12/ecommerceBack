@@ -16,10 +16,10 @@ const MgetAllProducts = async () => {
 }
 
 
-const MaddProducts = async (vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) => {
+const MaddProducts = async (vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) => {
     return new Promise((resolve, reject) => {
-        var sql = "INSERT INTO products (vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        con.query(sql,[vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn], function (err, result) {
+        var sql = "INSERT INTO products (vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        con.query(sql,[vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
@@ -31,10 +31,10 @@ const MaddProducts = async (vendorId,name,description,quantity,price,categoryId,
     })
 }
 
-const MupdateProducts = async (id,vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) => {
+const MupdateProducts = async (id,vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE  products set vendorId = ?,name =?,description =?,quantity =?,price =?,categoryId =?,subCategoryId =?,typeId =?,brand =?,sizeAvailable =?,mainImageUrl =?,subImageUrl =?,colorOption =?,tags =?,createdBy =?,updatedBy =?,createdOn =?,updatedOn =? where id = ? ";
-        con.query(sql,[vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn,id], function (err, result) {
+        var sql = "UPDATE  products set vendorId = ?,name =?,description =?,quantity =?,price =?,categoryId =?,subCategoryId =?,typeId =?,brand =?,sizeAvailable =?,mainImageUrl =?,I1ImageUrl =?,I2ImageUrl =?,I3ImageUrl =?,colorOption =?,tags =?,createdBy =?,updatedBy =?,createdOn =?,updatedOn =? where id = ? ";
+        con.query(sql,[vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn,id], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
@@ -61,6 +61,27 @@ const MdeleteProducts = async (id) => {
     })
 }
 
+const Mgetproductsbyid = async (id) => {
+    return new Promise((resolve, reject) => {
+        var sql = "SELECT * FROM products  where id = ? ";
+        con.query(sql,[id], function (err, result) {
+
+            if(err){
+                resolve({error:err,result:null})
+            }
+            else{
+                if(result.length >0 )
+                resolve({error:null,result:result[0]})
+
+                else
+                resolve({error:null,result:null})
+
+                console.log(" Product Deleted");
+            }
+        });
+    })
+}
+
 
 
 
@@ -69,7 +90,8 @@ module.exports = {
     MgetAllProducts,
     MaddProducts,
     MupdateProducts,
-    MdeleteProducts
+    MdeleteProducts,
+    Mgetproductsbyid
     
 }
 

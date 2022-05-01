@@ -16,10 +16,10 @@ const MgetAllType = async () => {
 }
 
 
-const MaddType = async (name,description,category,createdBy,updatedBy,createdOn) => {
+const MaddType = async (name,description,subcategory) => {
     return new Promise((resolve, reject) => {
-        var sql = "INSERT INTO type (name,description,category,createdBy,updatedBy,createdOn) VALUES (?,?,?,?,?,?)";
-        con.query(sql,[name,description,category,createdBy,updatedBy,createdOn], function (err, result) {
+        var sql = "INSERT INTO type (name,description,subcategory) VALUES (?,?,?)";
+        con.query(sql,[name,description,subcategory], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
@@ -31,10 +31,10 @@ const MaddType = async (name,description,category,createdBy,updatedBy,createdOn)
     })
 }
 
-const MupdateType = async (id,name,description,category,createdBy,updatedBy,createdOn) => {
+const MupdateType = async (id,name,description,subcategory) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE  type set name=?,description=?,category=?,createdBy=?,updatedBy=?,createdOn=? where id = ? ";
-        con.query(sql,[name,description,category,createdBy,updatedBy,createdOn,id], function (err, result) {
+        var sql = "UPDATE  type set name=?,description=?,subcategory=? where id = ? ";
+        con.query(sql,[name,description,subcategory,id], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }

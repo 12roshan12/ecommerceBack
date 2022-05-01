@@ -8,17 +8,17 @@ const CgetType = async(req,res)=>{
 }
 
 const CaddType = async(req,res)=>{
-    const {name,description,category,createdBy,updatedBy,createdOn}=req.body
-    const result = await MaddType(name,description,category,createdBy,updatedBy,createdOn);
+    const {name,description,subcategory}=req.body
+    const result = await MaddType(name,description,subcategory);
     // res.send("add")
     res.send(result)
     console.log(result);
 }
 
 const CupdateType = async(req,res)=>{
-    const {name,description,category,createdBy,updatedBy,createdOn}=req.body
+    const {name,description,subcategory}=req.body
     const {id} = req.params
-    const result = await MupdateType(id,name,description,category,createdBy,updatedBy,createdOn);
+    const result = await MupdateType(id,name,description,subcategory);
     // res.send("update")
     res.send(result)
     console.log(result);

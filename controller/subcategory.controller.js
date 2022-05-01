@@ -8,17 +8,17 @@ const CgetSubCategory = async(req,res)=>{
 }
 
 const CaddSubCategory = async(req,res)=>{
-    const {name,description,category,createdBy,updatedBy,createdOn}=req.body
-    const result = await MaddSubCategory(name,description,category,createdBy,updatedBy,createdOn);
+    const {name,description,category}=req.body
+    const result = await MaddSubCategory(name,description,category);
     // res.send("add")
     res.send(result)
     console.log(result);
 }
 
 const CupdateSubCategory = async(req,res)=>{
-    const {name,description,category,createdBy,updatedBy,createdOn}=req.body
+    const {name,description,category}=req.body
     const {id} = req.params
-    const result = await MupdateSubCategory(id,name,description,category,createdBy,updatedBy,createdOn);
+    const result = await MupdateSubCategory(id,name,description,category);
     // res.send("update")
     res.send(result)
     console.log(result);

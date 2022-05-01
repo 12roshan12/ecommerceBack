@@ -9,17 +9,17 @@ const CgetCategory = async(req,res)=>{
 
 const CaddCategory = async(req,res)=>{
     console.log(req);
-    const {categoryName,categoryDesc,createdBy,updatedBy,createdOn}=req.body
-    const result = await MaddCategory(categoryName,categoryDesc,createdBy,updatedBy,createdOn);
+    const {categoryName,categoryDesc}=req.body
+    const result = await MaddCategory(categoryName,categoryDesc);
     // res.send("add")
     res.send(result)
     console.log(result);
 }
 
 const CupdateCategory = async(req,res)=>{
-    const {categoryName,categoryDesc,createdBy,updatedBy,createdOn}=req.body
+    const {categoryName,categoryDesc}=req.body
     const {id} = req.params
-    const result = await MupdateCategory(id,categoryName,categoryDesc,createdBy,updatedBy,createdOn);
+    const result = await MupdateCategory(id,categoryName,categoryDesc);
     // res.send("update")
     res.send(result)
     console.log(result);

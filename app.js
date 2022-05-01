@@ -48,6 +48,42 @@ app.post('/api/upload', imageUpload.uploadImage().single('file'), (req, res,next
             res.json(req.file)  
         })  
 });
+app.post('/api/upload1', imageUpload.uploadImage().single('file'), (req, res,next) => {
+  console.log(res);
+  console.log(req);  
+ 
+  console.log(req.file.filename)
+        var imgsrc =  req.file.filename
+        var insertData = "INSERT INTO images(filename)VALUES(?)"
+        con.query(insertData, [imgsrc], (err, result) => {
+            if (err) throw err            
+            res.json(req.file)  
+        })  
+});
+app.post('/api/upload2', imageUpload.uploadImage().single('file'), (req, res,next) => {
+  console.log(res);
+  console.log(req);  
+ 
+  console.log(req.file.filename)
+        var imgsrc =  req.file.filename
+        var insertData = "INSERT INTO images(filename)VALUES(?)"
+        con.query(insertData, [imgsrc], (err, result) => {
+            if (err) throw err            
+            res.json(req.file)  
+        })  
+});
+app.post('/api/upload3', imageUpload.uploadImage().single('file'), (req, res,next) => {
+  console.log(res);
+  console.log(req);  
+ 
+  console.log(req.file.filename)
+        var imgsrc =  req.file.filename
+        var insertData = "INSERT INTO images(filename)VALUES(?)"
+        con.query(insertData, [imgsrc], (err, result) => {
+            if (err) throw err            
+            res.json(req.file)  
+        })  
+});
 app.post('/api/upload/multiple', imageUpload.uploadImage().array('file',3), (req, res,next) => {
      console.log( req.files);
         var temp = []

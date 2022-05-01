@@ -1,4 +1,4 @@
-const { MgetAllProducts, MaddProducts,MupdateProducts,MdeleteProducts } = require("../models/products.models")
+const { MgetAllProducts, MaddProducts,MupdateProducts,MdeleteProducts,Mgetproductsbyid } = require("../models/products.models")
 
 const CfindAllProducts = async(req,res)=>{
     const result = await MgetAllProducts();
@@ -8,18 +8,18 @@ const CfindAllProducts = async(req,res)=>{
 }
 
 const CaddProducts = async(req,res)=>{
-    const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
+    const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
     
-    const result = await MaddProducts(vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,JSON.stringify(sizeAvailable),mainImageUrl,JSON.stringify(subImageUrl),JSON.stringify(colorOption), JSON.stringify(tags),createdBy,updatedBy,createdOn,updatedOn);
+    const result = await MaddProducts(vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,JSON.stringify(sizeAvailable),mainImageUrl,I1ImageUrl,I2ImageUrl,I3ImageUrl,JSON.stringify(colorOption), JSON.stringify(tags),createdBy,updatedBy,createdOn,updatedOn);
     // res.send("add")
     res.send(result)
     console.log(result);
 }
 
 const CupdateProducts = async(req,res)=>{
-    const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
+    const {vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn}=req.body
     const {id} = req.params
-    const result = await MupdateProducts(id,vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,sizeAvailable,mainImageUrl,subImageUrl,colorOption,tags,createdBy,updatedBy,createdOn,updatedOn);
+    const result = await MupdateProducts(id,vendorId,name,description,quantity,price,categoryId,subCategoryId,typeId,brand,JSON.stringify(sizeAvailable),mainImageUrl,I1ImageUrl,I2ImageUrl ,I3ImageUrl,JSON.stringify(colorOption), JSON.stringify(tags),createdBy,updatedBy,createdOn,updatedOn);
     // res.send("update")
     res.send(result)
     console.log(result);
@@ -27,6 +27,13 @@ const CupdateProducts = async(req,res)=>{
 const CdeleteProducts = async(req,res)=>{
     const {id} = req.params
     const result = await MdeleteProducts(id);
+    res.send(result)
+    // res.send("delete")
+    console.log(result);
+}
+const Cgetproductsbyid = async(req,res)=>{
+    const {id} = req.params
+    const result = await Mgetproductsbyid(id);
     res.send(result)
     // res.send("delete")
     console.log(result);
@@ -40,6 +47,7 @@ module.exports = {
     CfindAllProducts,
     CaddProducts,
     CupdateProducts,
-    CdeleteProducts
+    CdeleteProducts,
+    Cgetproductsbyid
 
 }

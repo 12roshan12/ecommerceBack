@@ -16,10 +16,10 @@ const MgetAllSubCategory = async () => {
 }
 
 
-const MaddSubCategory = async (name,description,category,createdBy,updatedBy,createdOn) => {
+const MaddSubCategory = async (name,description,category) => {
     return new Promise((resolve, reject) => {
-        var sql = "INSERT INTO SubCategory (name,description,category,createdBy,updatedBy,createdOn) VALUES (?,?,?,?,?,?)";
-        con.query(sql,[name,description,category,createdBy,updatedBy,createdOn], function (err, result) {
+        var sql = "INSERT INTO SubCategory (name,description,category) VALUES (?,?,?)";
+        con.query(sql,[name,description,category], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
@@ -31,10 +31,10 @@ const MaddSubCategory = async (name,description,category,createdBy,updatedBy,cre
     })
 }
 
-const MupdateSubCategory = async (id,name,description,category,createdBy,updatedBy,createdOn) => {
+const MupdateSubCategory = async (id,name,description,category) => {
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE  SubCategory set name=?,description=?,category=?,createdBy=?,updatedBy=?,createdOn=? where id = ? ";
-        con.query(sql,[name,description,category,createdBy,updatedBy,createdOn,id], function (err, result) {
+        var sql = "UPDATE  SubCategory set name=?,description=?,category=? where id = ? ";
+        con.query(sql,[name,description,category,id], function (err, result) {
             if(err){
                 resolve({error:err,result:null})
             }
