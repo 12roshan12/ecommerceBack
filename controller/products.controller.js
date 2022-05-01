@@ -1,4 +1,4 @@
-const { MgetAllProducts, MaddProducts,MupdateProducts,MdeleteProducts,Mgetproductsbyid } = require("../models/products.models")
+const { MgetAllProducts, MaddProducts,MupdateProducts,MdeleteProducts,Mgetproductsbyid,MgetproductsbyVendorid } = require("../models/products.models")
 
 const CfindAllProducts = async(req,res)=>{
     const result = await MgetAllProducts();
@@ -38,6 +38,14 @@ const Cgetproductsbyid = async(req,res)=>{
     // res.send("delete")
     console.log(result);
 }
+const CgetproductsbyVendorid = async(req,res)=>{
+
+    console.log(req);
+    const {vendorId} = req.params
+    const result = await MgetproductsbyVendorid(vendorId);
+    res.send(result)
+    console.log("controller" + result);
+}
 
 
 
@@ -48,6 +56,7 @@ module.exports = {
     CaddProducts,
     CupdateProducts,
     CdeleteProducts,
-    Cgetproductsbyid
+    Cgetproductsbyid,
+    CgetproductsbyVendorid
 
 }

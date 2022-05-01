@@ -82,6 +82,28 @@ const Mgetproductsbyid = async (id) => {
     })
 }
 
+const MgetproductsbyVendorid = async (vendorId) => {
+    return new Promise((resolve, reject) => {
+
+        
+        var sql = "SELECT * FROM products  where vendorId = ? ";
+        con.query(sql,[vendorId], function (err, result) {
+
+            console.log( "model" + result);
+            console.log( "model" + err);
+
+            if(err){
+                resolve({error:err,result:null})
+            }
+            else{                
+                resolve({error:null,result:result})              
+                console.log(" Product Fetched");
+            }
+        });
+    })
+}
+
+
 
 
 
@@ -91,7 +113,8 @@ module.exports = {
     MaddProducts,
     MupdateProducts,
     MdeleteProducts,
-    Mgetproductsbyid
+    Mgetproductsbyid,
+    MgetproductsbyVendorid
     
 }
 
