@@ -13,6 +13,8 @@ var offersRouter = require('./routes/offers.route')
 var cartRouter = require('./routes/cart.route')
 var imageRouter = require('./routes/images.route')
 var typeRouter = require('./routes/type.route')
+var registerRouter = require('./routes/register.route')
+var loginRouter = require('./routes/login.route')
 var path = require("path")
 var imageUpload  = require('./models/upload.model')
 var body = require('body-parser')
@@ -35,6 +37,8 @@ app.use("/offers",offersRouter)
 app.use("/cart",cartRouter)
 app.use("/images",imageRouter)
 app.use("/type",typeRouter)
+app.use("/vendor",registerRouter)
+app.use("/login",loginRouter)
 
 app.post('/api/upload', imageUpload.uploadImage().single('file'), (req, res,next) => {
   console.log(res);
