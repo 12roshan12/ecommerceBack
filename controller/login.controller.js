@@ -1,8 +1,8 @@
 const { MVendorLogin} = require("../models/login.models")
 
 const CVendorLogin = async(req,res)=>{
-    const {id} = req.params
-    const result = await MVendorLogin(id);
+    const {vendorId,password} = req.body
+    const result = await MVendorLogin(vendorId,password);
     // res.send("get")
     res.send(result)
     console.log(result);
@@ -12,5 +12,4 @@ const CVendorLogin = async(req,res)=>{
 
 module.exports = {
     CVendorLogin 
-
 }

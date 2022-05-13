@@ -3,7 +3,7 @@ const { CVendorLogin } = require("../controller/login.controller");
 const route = express.Router()
 
 
-route.get('/vendorLogin',CVendorLogin)
+route.post('/vendorLogin',CVendorLogin)
 
 
 module.exports = route

@@ -5,7 +5,7 @@ const route = express.Router()
 
 route.get('/getvendor',Cgetvendor)
 route.put('/updatevendor/:id',Cupdatevendor)
-route.post('/addvendor',Caddvendor)
+route.post('/vendorRegister',Caddvendor)
 route.delete('/deletevendor/:id',Cdeletevendor)
 
 module.exports = route

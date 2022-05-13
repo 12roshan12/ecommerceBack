@@ -1,6 +1,8 @@
 var express = require('express')
 var cors = require('cors')
 var app = express()
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 var productRouter = require('./routes/products.route')
 var orderRouter = require('./routes/orders.route')
 var vendorRouter = require('./routes/vendor.route')
@@ -37,7 +39,7 @@ app.use("/offers",offersRouter)
 app.use("/cart",cartRouter)
 app.use("/images",imageRouter)
 app.use("/type",typeRouter)
-app.use("/vendor",registerRouter)
+app.use("/register",registerRouter)
 app.use("/login",loginRouter)
 
 app.post('/api/upload', imageUpload.uploadImage().single('file'), (req, res,next) => {
