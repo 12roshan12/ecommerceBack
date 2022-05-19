@@ -1,4 +1,5 @@
 const { MgetAllvendor, Maddvendor,Mupdatevendor,Mdeletevendor } = require("../models/register.models")
+const bcrypt = require('bcrypt')
 
 const Cgetvendor = async(req,res)=>{
     const result = await MgetAllvendor();
@@ -9,10 +10,18 @@ const Cgetvendor = async(req,res)=>{
 
 const Caddvendor = async(req,res)=>{
     const {vendorId,name,password,email,phoneNumber,address,createdBy,updatedBy,createdOn,updatedOn}=req.body
-    const result = await Maddvendor(vendorId,name,password,email,phoneNumber,address,createdBy,updatedBy,createdOn,updatedOn);
+   try{
+    
+    const hashedpassword = await bcrypt.hash(req.body.password, 10)
+    const result = await Maddvendor(vendorId,name,hashedpassword,email,phoneNumber,address,createdBy,updatedBy,createdOn,updatedOn);
     // res.send("add")
     res.send(result)
     console.log(result);
+   }
+   catch{
+    res.status.send(500)
+   }
+    
 }
 
 const Cupdatevendor = async(req,res)=>{
