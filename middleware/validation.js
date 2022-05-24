@@ -1,13 +1,27 @@
-const { check } = require('express-validator');
- 
-exports.signupValidation = [
-    check('name', 'Name is requied').not().isEmpty(),
-    check('email', 'Please include a valid email').isEmail().normalizeEmail({ gmail_remove_dots: true }),
-    check('password', 'Password must be 6 or more characters').isLength({ min: 6 })
-]
- 
-exports.loginValidation = [
-     check('email', 'Please include a valid email').isEmail().normalizeEmail({ gmail_remove_dots: true }),
-     check('password', 'Password must be 6 or more characters').isLength({ min: 6 })
- 
-]
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
+
+
+
+module.exports = async function  authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    console.log("token" + token);
+    console.log("token" + authHeader);
+
+    if (token == null) return res.sendStatus(401)
+    console.log(req);
+
+    await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        console.log(err, user);
+
+        if (err) return res.sendStatus(403)
+
+        req.user = user
+
+        next()
+    })
+}
+
+
