@@ -25,7 +25,7 @@ const CVendorLogin = async (req, res) => {
                 const username = obj.vendorId
                 const user = { name: username, password: obj.password.password }
                 const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-                    expiresIn: '10s',
+                    // expiresIn: '10s',
                 })
                 res.send({ status: 200, message: "Login Successful", access_token: accessToken })
             }

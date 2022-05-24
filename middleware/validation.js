@@ -14,7 +14,7 @@ module.exports = async function  authenticateToken(req, res, next) {
     console.log(req);
 
     await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        console.log(err, user);
+        console.log( "error is " + err);
 
         if (err) return res.sendStatus(403)
 
