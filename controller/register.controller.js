@@ -11,7 +11,7 @@ const Cgetvendor = async(req,res)=>{
 const Caddvendor = async(req,res)=>{
     const {vendorId,name,password,email,phoneNumber,address,createdBy,updatedBy,createdOn,updatedOn}=req.body
    try{
-    
+     
     const hashedpassword = await bcrypt.hash(req.body.password, 10)
     const result = await Maddvendor(vendorId,name,hashedpassword,email,phoneNumber,address,createdBy,updatedBy,createdOn,updatedOn);
     // res.send("add")

@@ -1,4 +1,4 @@
-const { Mgetallorders, Maddorders, Mdeleteorders, Mupdateorders } = require("../models/order.models")
+const { Mgetallorders, Maddorders, Mdeleteorders, Mupdateorders,MgetOrdersbyVendorid } = require("../models/order.models")
 
 
 const Cgetorders = async(req,res)=>{
@@ -15,8 +15,8 @@ const Cgetorders = async(req,res)=>{
 }
 
 const Caddorders = async(req,res)=>{
-    const {client,product,createdBy,updatedBy,createdOn} = req.body
-    const result = await Maddorders(client,product,createdBy,updatedBy,createdOn)
+    const {clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn} = req.body
+    const result = await Maddorders(clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn)
     if(result.error){
         console.log(result.error);
         res.status(400).json("Bad Request")
@@ -40,9 +40,9 @@ const Cdeleteorders = async(req,res)=>{
 }
 
 const Cupdateorders = async(req,res)=>{
-    const {client,product,createdBy,updatedBy,createdOn} = req.body
+    const {clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn} = req.body
     const {id} = req.params
-    const result = await Mupdateorders(id,client,product,createdBy,updatedBy,createdOn)
+    const result = await Mupdateorders(id,clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn)
     console.log(result);
     if(result.error){
         res.status(400).json("Bad Request")
@@ -52,9 +52,25 @@ const Cupdateorders = async(req,res)=>{
     }
 }
 
+const CgetOrderssbyVendorid = async(req,res)=>{
+
+    console.log( "request" + req);
+    const {vendorId} = req.params
+    const result = await MgetOrdersbyVendorid(vendorId);
+    if(result.error){
+        res.status(400).json("Bad Request")
+    }
+    else{
+        res.status(200).json(result.result)
+    }
+    console.log("controller" + result);
+}
+
+
 module.exports = {
     Cgetorders,
     Caddorders,
     Cdeleteorders,
-    Cupdateorders
+    Cupdateorders,
+    CgetOrderssbyVendorid
 }

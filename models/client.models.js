@@ -2,10 +2,10 @@
 const con = require('../database/db')
 
 
-const Maddclient = async (pan,name,address,contactNo,createdBy,createdOn,updatedBy) => {
+const Maddclient = async (clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn) => {
     return new Promise((resolve, reject) => {
-        const sql = "INSERT INTO clients (pan,name,address,contactNo,createdBy,createdOn,updatedBy) VALUES (?,?,?,?,?,?,?)";
-        con.query(sql, [pan,name,address,contactNo,createdBy,createdOn,updatedBy], function (err, result) {
+        const sql = "INSERT INTO client (clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        con.query(sql, [clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn], function (err, result) {
             console.log(result)
             if (err) {
                 resolve({ error: err, result: null })
@@ -20,7 +20,7 @@ const Maddclient = async (pan,name,address,contactNo,createdBy,createdOn,updated
 const Mgetclient = async () => {
 
     return new Promise((resolve, reject) => {
-        const sql = "SELECT * FROM clients";
+        const sql = "SELECT * FROM client";
         con.query(sql, function (err, result) {
             if (err) {
                 resolve({ error: err, result: null })
@@ -32,11 +32,11 @@ const Mgetclient = async () => {
     })
 }
 
-const Mupdateclient = async (id,pan,name,address,contactNo,createdBy,createdOn,updatedBy) => {
+const Mupdateclient = async (id,clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn) => {
 
     return new Promise((resolve, reject) => {
-        const sql = "UPDATE clients set pan=?,name=?,address=?,contactNo=?,createdBy=?,createdOn=?,updatedBy=? where id=?";
-        con.query(sql, [pan,name,address,contactNo,createdBy,createdOn,updatedBy, id], function (err, result) {
+        const sql = "UPDATE client set clientId = ?,name =?,password =?,email =?,phoneNumber =?,address =?,createdBy=?,createdOn =?,updatedBy =?,updatedOn =? where id=?";
+        con.query(sql, [clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn,id], function (err, result) {
             if (err) {
                 resolve({ error: err, result: null })
             }
@@ -49,7 +49,7 @@ const Mupdateclient = async (id,pan,name,address,contactNo,createdBy,createdOn,u
 
 const Mdeleteclient = async (id) => {
     return new Promise((resolve, reject) => {
-        const sql = "DELETE FROM clients where id = ?";
+        const sql = "DELETE FROM client where id = ?";
         con.query(sql, [id], function (err, result) {
             if (err) {
                 resolve({ error: err, result: result })

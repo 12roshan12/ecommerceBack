@@ -2,8 +2,8 @@ const { Maddclient,Mgetclient,Mdeleteclient,Mupdateclient } = require("../models
 
 
 const Caddclient = async(req,res)=>{
-    const {pan,name,address,contactNo,createdBy,createdOn,updatedBy} = req.body
-    const result = await Maddclient(pan,name,address,contactNo,createdBy,createdOn,updatedBy)
+    const {clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn} = req.body
+    const result = await Maddclient(clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn)
     console.log(result);
     if(result.error){
         res.status(400).json("Bad request")
@@ -24,9 +24,9 @@ const Cgetclients = async(req,res)=>{
 }
 
 const Cupdateclients  = async(req,res)=>{
-    const {pan,name,address,contactNo,createdBy,createdOn,updatedBy} = req.body
+    const {clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn} = req.body
     const {id} = req.params
-    const result =await Mupdateclient(id,pan,name,address,contactNo,createdBy,createdOn,updatedBy);
+    const result =await Mupdateclient(id,clientId,name,password,email,phoneNumber,address,createdBy,createdOn,updatedBy,updatedOn);
     console.log(result);
     if(result.error){
 
@@ -47,7 +47,7 @@ const Cdeleteclient = async(req,res)=>{
         res.status(200).json(result.result)
     }
 
-}
+} 
 
 
 module.exports = {
