@@ -76,7 +76,6 @@ const Mgetproductsbyid = async (id) => {
                 else
                 resolve({error:null,result:null})
 
-                console.log(" Product Deleted");
             }
         });
     })

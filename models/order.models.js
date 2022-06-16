@@ -20,11 +20,11 @@ const Mgetallorders = async () => {
 }
 
 
-const Maddorders = async (clientId, productId, vendorId, status, orderedBy, orderedOn, updatedBy, updatedOn) => {
+const Maddorders = async (clientId, productId, vendorId, quantity, status, orderedBy, orderedOn, updatedBy, updatedOn) => {
     return new Promise((resolve, reject) => {
 
-        var sql = "INSERT INTO orders (clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn) VALUES(?,?,?,?,?,?,?,?)";
-        con.query(sql, [clientId, productId, vendorId, status, orderedBy, orderedOn, updatedBy, updatedOn], function (err, result) {
+        var sql = "INSERT INTO orders (clientId,productId,vendorId, quantity,status,orderedBy,orderedOn,updatedBy,updatedOn) VALUES(?,?,?,?,?,?,?,?,?)";
+        con.query(sql, [clientId, productId, vendorId, quantity, status, orderedBy, orderedOn, updatedBy, updatedOn], function (err, result) {
             if (err) {
                 resolve({ error: err, result: null })
             }
@@ -36,12 +36,12 @@ const Maddorders = async (clientId, productId, vendorId, status, orderedBy, orde
     })
 }
 
-const Mupdateorders = async (id, clientId, productId, vendorId, status, orderedBy, orderedOn, updatedBy, updatedOn) => {
+const Mupdateorders = async (id, clientId, productId, vendorId, quantity, status, orderedBy, orderedOn, updatedBy, updatedOn) => {
 
 
     return new Promise((resolve, reject) => {
-        var sql = "UPDATE orders set clientId = ?,productId =?,vendorId =?,status =?,orderedBy =?,orderedOn =?,updatedBy =?,updatedOn =? where id = ?"
-        con.query(sql, [clientId, productId, vendorId, status, orderedBy, orderedOn, updatedBy, updatedOn, id], function (err, result) {
+        var sql = "UPDATE orders set clientId = ?,productId =?,vendorId =?,quantity = ?,status =?,orderedBy =?,orderedOn =?,updatedBy =?,updatedOn =? where id = ?"
+        con.query(sql, [clientId, productId, vendorId, quantity, status, orderedBy, orderedOn, updatedBy, updatedOn, id], function (err, result) {
             if (err) {
                 resolve({ error: err, result: null })
             }
@@ -88,10 +88,37 @@ const MgetOrdersbyVendorid = async (vendorId) => {
     })
 }
 
+const MgetOrdersandproductbyVendorid = async (vendorId) => {
+    return new Promise((resolve, reject) => {
+
+
+        var sql = "SELECT * FROM orders where vendorId = ? ";
+        con.query(sql, [vendorId], function (err, result) {
+
+
+            if (err) {
+                resolve({ error: err, result: null })
+            }
+            else {
+                var obj 
+                const temp = Object.values(JSON.parse(JSON.stringify(result.result)));
+                for (var i = 0; i < temp.length; i++) {
+                     obj = temp[i];
+                }
+                console.log(obj);
+                console.log(result);
+                resolve({ error: null, result: result })
+                console.log(vendorId);
+            }
+        });
+    })
+}
+
 module.exports = {
     Mgetallorders,
     Maddorders,
     Mupdateorders,
     Mdeleteorders,
-    MgetOrdersbyVendorid
+    MgetOrdersbyVendorid,
+    MgetOrdersandproductbyVendorid
 }

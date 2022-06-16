@@ -1,4 +1,4 @@
-const { Mgetallorders, Maddorders, Mdeleteorders, Mupdateorders,MgetOrdersbyVendorid } = require("../models/order.models")
+const { Mgetallorders, Maddorders, Mdeleteorders, Mupdateorders,MgetOrdersbyVendorid,MgetOrdersandproductbyVendorid } = require("../models/order.models")
 
 
 const Cgetorders = async(req,res)=>{
@@ -15,15 +15,15 @@ const Cgetorders = async(req,res)=>{
 }
 
 const Caddorders = async(req,res)=>{
-    const {clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn} = req.body
-    const result = await Maddorders(clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn)
+    const {clientId,productId,vendorId,quantity,status,orderedBy,orderedOn,updatedBy,updatedOn} = req.body
+    const result = await Maddorders(clientId,productId,vendorId,quantity,status,orderedBy,orderedOn,updatedBy,updatedOn)
     if(result.error){
         console.log(result.error);
         res.status(400).json("Bad Request")
         return
     }
     else{
-        res.status(200).json(result.result)
+        res.status(200).json({error:"null",data:result.result})
         return
     }
 }
@@ -40,9 +40,9 @@ const Cdeleteorders = async(req,res)=>{
 }
 
 const Cupdateorders = async(req,res)=>{
-    const {clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn} = req.body
+    const {clientId,productId,vendorId,quantity,status,orderedBy,orderedOn,updatedBy,updatedOn} = req.body
     const {id} = req.params
-    const result = await Mupdateorders(id,clientId,productId,vendorId,status,orderedBy,orderedOn,updatedBy,updatedOn)
+    const result = await Mupdateorders(id,clientId,productId,vendorId,quantity,status,orderedBy,orderedOn,updatedBy,updatedOn)
     console.log(result);
     if(result.error){
         res.status(400).json("Bad Request")
@@ -61,9 +61,21 @@ const CgetOrderssbyVendorid = async(req,res)=>{
         res.status(400).json("Bad Request")
     }
     else{
-        res.status(200).json(result.result)
+        res.status(200).json({error:"null",data:result.result})
     }
-    console.log("controller" + result);
+}
+
+const CgetOrdersandproductbyVendorid = async(req,res)=>{
+
+    console.log( "request" + req);
+    const {vendorId} = req.params
+    const result = await MgetOrdersandproductbyVendorid(vendorId);
+    if(result.error){
+        res.status(400).json("Bad Request")
+    }
+    else{
+        res.status(200).json({error:"null",data:result.result})
+    }
 }
 
 
@@ -72,5 +84,6 @@ module.exports = {
     Caddorders,
     Cdeleteorders,
     Cupdateorders,
-    CgetOrderssbyVendorid
+    CgetOrderssbyVendorid,
+    CgetOrdersandproductbyVendorid
 }
